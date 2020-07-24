@@ -1,17 +1,13 @@
 {% extends 'users/base.html' %}
-{% load static %}
+
 {% block container %}
-    <section class="container-fluid bg mt-5">
-      <section class="row justify-content-center">
-        <section class="col-12 col-sm-6 col-md-3">
-          <form class="form-container" method="POST">
+    <form method="POST">
             {% csrf_token %}
-            <img src="{% static 'images/recipes-logo.png' %}" alt="Logo" class="img-fluid mx-auto d-block">
             <h3 class="mt-5 text-center">Iniciar sesión</h3>
             <hr />
             <div class="form-group">
               <input
-                type="email"
+                type="text"
                 class="form-control"
                 name="username"
                 aria-describedby="username"
@@ -26,12 +22,12 @@
                 placeholder="Contraseña"
               />
             </div>
-            <hr />
             <button type="submit" class="btn btn-primary btn-block">
               Ingresar
             </button>
+            {% if errors %}
+              <p class="alert alert-danger mt-3">{{ errors }}</p>
+            {% endif %}
           </form>
-        </section>
-      </section>
-    </section>
+        
 {% endblock %}

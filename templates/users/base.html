@@ -34,7 +34,16 @@
     <title>Las recetas de Perlita y Chuy</title>
   </head>
   <body>
-    {% block container %}
-    {% endblock %}
+    <section class="container-fluid bg">
+      <section class="row justify-content-center">
+        <section class="col-10 col-sm-6 col-md-3 form-container">
+          <img src="{% static 'images/recipes-logo.png' %}" alt="Logo" class="img-fluid mx-auto d-block">
+
+          {% block container %}
+          {% endblock %}
+
+        </section>
+      </section>
+    </section>
   </body>
 </html>
