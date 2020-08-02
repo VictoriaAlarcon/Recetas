@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -29,19 +28,19 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-
+    {% comment %} se importa el static para poder usarlo {% endcomment %}
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
-    {% comment %} bloque en el head para añadir titulos u otros {% endcomment %}
+    {% comment %} El css lo toma desde static y sigue la ruta que pide {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/formRecetas.css' %}" />
     {% block head_content %}{% endblock %}
   </head>
   <body>
+  {% comment %} Añade la nav bar, la busca desde tamplates {% endcomment %}
+  {% include "nav.html" %}
     <section class="container-fluid bg">
       <section class="row justify-content-center">
-        <section class="col-10 col-sm-6 col-md-3 form-container">
-          {% comment %} importa el static {% endcomment %}
-          <img src="{% static 'images/recipes-logo.png' %}" alt="Logo" class="img-fluid mx-auto d-block">
-          {% comment %} Solo se declara el bloque para poder renderizar en el {% endcomment %}
+        <section class="col-12 col-sm-12 col-md-10 form-container">
+
           {% block container %}
           {% endblock %}
 

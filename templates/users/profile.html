@@ -1,0 +1,47 @@
+{% extends 'recipes/base.html' %}
+
+{% block head_content %}
+<title>Profile</title>
+{% endblock%}
+
+{% load static %}
+{% comment %} si es formulario necesita enviar el token {% endcomment %}
+{% block container %}
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="media">
+        {% if profile.picture %}
+            <img src="{{ profile.picture.url }}" class="rounded-circle" height="50" />
+        {% else%}
+            <img src="{% static 'images/default-profile.png' %}" class="rounded-circle" height="50" />
+        {% endif %}
+
+        <div class="media-body">
+            <h5 class="ml-4">@{{ user.username }}</h5>
+            <p class="ml-4"><input type="file" name="picture"></p>
+        </div>
+        
+    </div>
+    <div class="form-group">
+        <label>Correo Electronico</label>
+        <textarea class="form-control" name="email">{{ user.email }}</textarea>
+    </div>
+    
+    <div class="form-group">
+        <label>Biografia</label>
+        <textarea class="form-control" name="biography">{{ profile.biography }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Telefono</label>
+        <input
+            class="form-control"
+            type="text"
+            name="phone_number"
+            placeholder="Phone number"
+            value="{{ profile.phone_number }}"
+        />
+    </div>
+    <button type="submit" class="btn btn-warning btn-block mt-5">Actualizar</button>
+  </form>
+{% endblock %}
