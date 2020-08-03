@@ -35,3 +35,8 @@ def ingresar(request):
 
     """renderiza la vista aunque no sea post"""
     return render(request, 'recipes/recetas.html')
+
+
+def recetario(request):
+
+    return render(request, 'recipes/recetario.html')
