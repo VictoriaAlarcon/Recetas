@@ -53,6 +53,32 @@ def add_user(request):
     return render(request, 'users/registro.html')
 
 
+def add_superuser(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        password2 = request.POST['password2']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+
+        if password != password2:
+            return render(request, 'users/registro_admin.html', {'error': 'Las contraseñas no coinciden'})
+
+        user = User.objects.create_superuser(
+            username=username, password=password)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.save()
+
+        profile = Profile(user=user)
+        profile.save()
+        return redirect('users:login')
+
+    return render(request, 'users/registro_admin.html')
+
+
 def update_profile(request):
     profile = request.user.profile
 
