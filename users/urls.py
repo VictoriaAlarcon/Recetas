@@ -1,5 +1,7 @@
 from django.urls import path
 from users import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 """Rutas de usuario"""
 urlpatterns = [
@@ -8,4 +10,4 @@ urlpatterns = [
     path(route='registrar/', view=views.add_user, name='registrar'),
     path(route='profile/', view=views.update_profile, name='profile'),
     path(route='superuser/', view=views.add_superuser, name='superuser'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
