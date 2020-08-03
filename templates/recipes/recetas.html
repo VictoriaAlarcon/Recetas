@@ -1,5 +1,9 @@
 {% extends 'recipes/base.html' %}
 
+{% block head_content %}
+<title>Ingresar recetas</title>
+{% endblock%}
+
 {% block container %}
 {% comment %} Necesita el metodo post y el enctype para poder funcionar {% endcomment %}
 <form class="was-validated" method="POST" enctype="multipart/form-data">
