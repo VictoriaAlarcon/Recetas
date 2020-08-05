@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from recipes.models import Recipes
+from django.http import HttpResponse
 # decorador
 
 """Te redirige si estas logueado"""
@@ -35,3 +36,27 @@ def ingresar(request):
 
     """renderiza la vista aunque no sea post"""
     return render(request, 'recipes/recetas.html')
+
+def galeria(request):
+    content=[]
+    for recipe in recipes:
+        content.append("""
+            <p><strong>{title}</strong></p>
+            <p><small>{description}</small></p>
+        """.format(**post)
+        )
+        # return render(request, 'recipes/individual.html')
+    return HttpResponse('<br>'.join(content))
+
+def recetario(request):
+    recipes = Recipes.objects.all()
+    return render(request, 'recipes/recetario.html', {'recipes':recipes})
+
+def main(request):
+       i = get_object_or_404(images, pk=1)
+       return render_to_response('recipes/recetario.html', {'image': i}, context_instance=RequestContext(request))
+
+# def list_posts(request):
+#     """List existing posts."""
+#     posts = Post.objects.all().order_by('-created')
+#     return render(request, 'posts/feed.html', {'posts': posts}
