@@ -22,21 +22,30 @@
     <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
         <a class="nav-link" href={% url 'recipes:index' %}
-            >Home <span class="sr-only">(current)</span></a
+            >Inicio <span class="sr-only">(current)</span></a
         >
         </li>
         <li class="nav-item">
         <a class="nav-link" href={% url 'recipes:recetario' %}>Recetario</a>
         </li>
+        {% if request.user.is_staff %}
         <li class="nav-item">
         <a class="nav-link" href={% url 'recipes:agregar' %}>Ingresar recetas</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="#">Registrar usuario</a>
+        <a class="nav-link" href={% url 'users:superuser' %}>Registrar usuario</a>
         </li>
+        <li class="nav-item">
+        <a class="nav-link" href=''>Admin</a>
+        </li>
+        {% endif %}
     </ul>
     <a href={% url 'users:profile' %}>
-        <img src="{% static 'images/default-profile.png' %}" height="35" class="d-inline-block align-top rounded-circle"/>
+        {% if request.user.profile.picture %}
+            <img src="{{ user.profile.picture.url }}" class="rounded-circle" height="35" width="35" />
+        {% else%}
+            <img src="{% static 'images/default-profile.png' %}" class="rounded-circle" height="35" width="35"/>
+        {% endif %}
     </a>
     <span class="mr-3 navbar-text">Hola {{ request.user.username }}</span>
     <a class="btn btn-warning" href={% url 'users:logout' %}>Logout</a>

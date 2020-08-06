@@ -52,11 +52,19 @@ def recetario(request):
     recipes = Recipes.objects.all()
     return render(request, 'recipes/recetario.html', {'recipes':recipes})
 
-def main(request):
-       i = get_object_or_404(images, pk=1)
-       return render_to_response('recipes/recetario.html', {'image': i}, context_instance=RequestContext(request))
+def individual(request):
+    recipes = Recipes.objects.filter(id=6)
+    return render(request, 'recipes/individual.html', {'recipes':recipes})
+
+# def main(request):
+#        i = get_object_or_404(images, pk=1)
+#        return render_to_response('recipes/recetario.html', {'image': i}, context_instance=RequestContext(request))
 
 # def list_posts(request):
 #     """List existing posts."""
 #     posts = Post.objects.all().order_by('-created')
 #     return render(request, 'posts/feed.html', {'posts': posts}
+
+# def recetario(request):
+
+#     return render(request, 'recipes/recetario.html')

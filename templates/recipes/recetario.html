@@ -8,15 +8,16 @@
     <div class="card-deck">
         {% for recipe in recipes %}
     <div class="card">
-        <img src="{{ recipe.images }}" alt="{{recipe.images}}" style="width:150px;"/>
+        <img class="card-img-top" src="{{ recipe.images.url }}" alt="Card image cap">
         <div class="card-body">
-        <h5 class="card-title">{{ recipe.title}}</h5>
-        <p class="card-text">{{ recipe.description }}</p>
-        <a href="#" class="btn btn-primary">Button</a>
+          <h5 class="card-title">{{recipe.title}}</h5>
+          <p class="card-text">{{ recipe.description }}</p>
+          <p class="card-text">{{recipe.puntaje}}</p>
         </div>
-        <div class="card-footer">
+        <div>
+            <a href={% url 'recipes:individual' %} class="btn btn-success">Abrir</a>
         </div>
-    </div>
+      </div>
     {% endfor %}
     </div>
   {% endblock %}

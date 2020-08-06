@@ -8,5 +8,6 @@ urlpatterns = [
     path(route='', view=views.index, name='index'),
     path(route='agregar/', view=views.ingresar, name='agregar'),
     path(route='galeria/', view=views.galeria, name='galeria'),
-    path(route='recetario/', view=views.recetario, name='recetario')
+    path(route='recetario/', view=views.recetario, name='recetario'),
+    path(route='recetario/individual/', view=views.individual, name='individual')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

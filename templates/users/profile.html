@@ -5,15 +5,15 @@
 {% endblock%}
 
 {% load static %}
-{% comment %} si es formulario necesita enviar el token {% endcomment %}
+
 {% block container %}
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="media">
         {% if profile.picture %}
-            <img src="{{ profile.picture.url }}" class="rounded-circle" height="50" />
+            <img src="{{ profile.picture.url }}" class="rounded-circle" height="50" width="50"/>
         {% else%}
-            <img src="{% static 'images/default-profile.png' %}" class="rounded-circle" height="50" />
+            <img src="{% static 'images/default-profile.png' %}" class="rounded-circle" height="50" width="50"/>
         {% endif %}
 
         <div class="media-body">
