@@ -32,16 +32,14 @@
 
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
-    {% comment %} bloque en el head para añadir titulos u otros {% endcomment %}
+    
     {% block head_content %}{% endblock %}
   </head>
   <body>
     <section class="container-fluid bg">
       <section class="row justify-content-center">
         <section class="col-10 col-sm-6 col-md-3 form-container">
-          {% comment %} importa el static {% endcomment %}
           <img src="{% static 'images/recipes-logo.png' %}" alt="Logo" class="img-fluid mx-auto d-block">
-          {% comment %} Solo se declara el bloque para poder renderizar en el {% endcomment %}
           {% block container %}
           {% endblock %}
 

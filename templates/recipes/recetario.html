@@ -2,12 +2,13 @@
 <title>Recetario</title>
 {% endblock%}
 {% block container %}
-<h1>
-  Recetario
-</h1>
-    <div class="card-deck">
-        {% for recipe in recipes %}
-    <div class="card">
+  <h1>
+    Recetario
+  </h1>
+  <hr />
+  <div class="card-deck">
+    {% for recipe in recipes %}
+      <div class="card">
         <img class="card-img-top" src="{{ recipe.images.url }}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">{{recipe.title}}</h5>
@@ -15,10 +16,10 @@
           <p class="card-text">{{recipe.puntaje}}</p>
         </div>
         <div>
-            <a href={% url 'recipes:individual' %} class="btn btn-success">Abrir</a>
+            <a href={% url 'recipes:individual' numId=recipe.id %} class="btn btn-success" style="float: right; margin: 10px">Abrir</a>
         </div>
       </div>
-    {% endfor %}
-    </div>
+    {% endfor %}  
+  </div>
   {% endblock %}
 </h1>
