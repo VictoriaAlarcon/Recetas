@@ -12,18 +12,10 @@
     <p class="card-text">{{recipe.ingredients}}</p>
     <p class="card-text">{{recipe.process}}</p>
     <h6 class="card-text" style="float: right;">
-      Puntuacion {{recipe.puntuation}}
+      Puntuacion {{recipes.puntuation}}
     </h6>
   </div>
-  <div class="card-body">
-    <p class="card-text">
-      <small class="text-muted"> created {{recipe.created}}</small>
-      <small class="text-muted"> Last updated{{recipe.modified}}</small>
-    </p>
-    <a href="#" class="btn btn-success" onclick="render()" style="float: right;"
-      >Descargar PDF</a
-    >
-  </div>
+  <div class="card-body"></div>
   {% endfor %}
 </div>
 {% endblock %}

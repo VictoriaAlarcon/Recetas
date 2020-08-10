@@ -1,7 +1,16 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from recipes.models import Recipes
+from django.views.generic import View
 from django.http import HttpResponse
+import xhtml2pdf.pisa as pisa
+
+from django.http import HttpResponse
+from django.views.generic import View
+from django.template.loader import get_template
+
+from .utils import render_to_pdf
+
 # decorador
 
 """Te redirige si estas logueado"""
@@ -46,3 +55,18 @@ def recetario(request):
 def individual(request, numId):
     recipes = Recipes.objects.filter(id=numId)
     return render(request, 'recipes/individual.html', {'recipes': recipes})
+
+def generatePdf(View):
+    model = Recipes
+    template_name= "recipes/individual.html"
+    context_object_name = 'recipes'
+
+def List_recipes(View):
+
+    def get(self, request, *args, **kwargs):
+        recipes = recipes.objects.all()
+        data = {
+            'title':title
+        }
+        pdf=render_to_pdf('recipes/list.html', data)
+        return HttpResponse(pdf, content_type='aplication/pdf')
