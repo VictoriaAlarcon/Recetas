@@ -1,9 +1,9 @@
-{% extends 'recipes/base.html' %} {% block container %} {% csrf_token %}
+
 <div class="card">
   {% for recipe in recipes %}
   <img
     class="card-img-top"
-    src="{{ recipe.images.url }}"
+    src="{{ image }}"
     alt="Card image cap"
   />
   <div class="card-body">
@@ -12,10 +12,10 @@
     <p class="card-text">{{recipe.ingredients}}</p>
     <p class="card-text">{{recipe.process}}</p>
     <h6 class="card-text" style="float: right;">
-      Puntuacion {{recipes.puntuation}}
+      Puntuacion {{recipe.puntuation}}
     </h6>
   </div>
   <div class="card-body"></div>
   {% endfor %}
 </div>
-{% endblock %}
+

@@ -20,7 +20,7 @@
       <small class="text-muted"> created {{recipe.created}}</small>
       <small class="text-muted"> Last updated{{recipe.modified}}</small>
     </p>
-    <a href="#" class="btn btn-success" onclick="render()" style="float: right;"
+    <a href={% url 'recipes:pdf' Id=recipe.id %} class="btn btn-success" target="_blank" style="float: right;"
       >Descargar PDF</a
     >
   </div>

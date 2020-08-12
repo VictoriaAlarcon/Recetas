@@ -2,15 +2,13 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from recipes.models import Recipes
 from django.views.generic import View
+from django.conf.urls.static import static
+import os
+from django.conf import settings
 from django.http import HttpResponse
-import xhtml2pdf.pisa as pisa
-
-from django.http import HttpResponse
-from django.views.generic import View
 from django.template.loader import get_template
-
-from .utils import render_to_pdf
-
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
 # decorador
 
 """Te redirige si estas logueado"""
@@ -56,17 +54,52 @@ def individual(request, numId):
     recipes = Recipes.objects.filter(id=numId)
     return render(request, 'recipes/individual.html', {'recipes': recipes})
 
-def generatePdf(View):
-    model = Recipes
-    template_name= "recipes/individual.html"
-    context_object_name = 'recipes'
 
-def List_recipes(View):
+class createPdf(View):
+    def link_callback(self, uri, rel):
+        """
+        Convert HTML URIs to absolute system paths so xhtml2pdf can access those
+        resources
+        """
+        result = finders.find(uri)
+        if result:
+            if not isinstance(result, (list, tuple)):
+                result = [result]
+            result = list(os.path.realpath(path) for path in result)
+            path = result[0]
+        else:
+            sUrl = settings.STATIC_URL        # Typically /static/
+            sRoot = settings.STATIC_ROOT      # Typically /home/userX/project_static/
+            mUrl = settings.MEDIA_URL         # Typically /media/
+            mRoot = settings.MEDIA_ROOT       # Typically /home/userX/project_static/media/
+
+            if uri.startswith(mUrl):
+                path = os.path.join(mRoot, uri.replace(mUrl, ""))
+            elif uri.startswith(sUrl):
+                path = os.path.join(sRoot, uri.replace(sUrl, ""))
+            else:
+                return uri
+
+        # make sure that file exists
+        if not os.path.isfile(path):
+            raise Exception(
+                'media URI must start with %s or %s' % (sUrl, mUrl)
+            )
+        return path
 
     def get(self, request, *args, **kwargs):
-        recipes = recipes.objects.all()
-        data = {
-            'title':title
-        }
-        pdf=render_to_pdf('recipes/list.html', data)
-        return HttpResponse(pdf, content_type='aplication/pdf')
+        try:
+            template = get_template('recipes/list.html')
+            context = {
+                'recipes': Recipes.objects.filter(id=self.kwargs['Id']),
+                'image': '{}{}'.format(settings.STATIC_URL, 'images/aprenderRecetas.png')
+            }
+            html = template.render(context)
+            response = HttpResponse(content_type='application/pdf')
+            pisaStatus = pisa.CreatePDF(
+                html, dest=response,
+                link_callback=self.link_callback
+            )
+            return response
+        except:
+            pass
